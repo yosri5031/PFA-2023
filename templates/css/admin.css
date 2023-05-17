@@ -5,9 +5,19 @@
 #sign-up{
   height:500px;
 }
-/*login image*/
+/*login image*/ 
 .bg-image {
-  background-image: url('https://eacea.ec.europa.eu/national-policies/eurydice/sites/default/files/eurydice-images/news-articles/teacher-5694365_1920.png');
+  margin-left:auto;
+  width: 100%; 
+  background-size: cover;
+  background-position: center;
+  height: 100vh; 
+}
+
+#login-image {
+  width: 100%;
+  height: 100%;
+  background-image: url('https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-83.jpg?w=2000');
   background-size: cover;
   background-position: center;
 }
@@ -17,6 +27,7 @@
   background-size: cover;
   background-position: center;
 }
+
 #titre-signup{
   color: #2584ff;
 }

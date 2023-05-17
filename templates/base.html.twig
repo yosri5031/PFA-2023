@@ -19,13 +19,14 @@
                 margin-left: 28%;
             }
             #logo {
-                background-color:#383c44;
+                background-color:transparent;
             }
         </style>
     {% endblock %}
 
     {% block javascripts %}
         {#{{ encore_entry_script_tags('app') }}#}
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     {% endblock %}
 
@@ -36,11 +37,11 @@
 
     {# les différents élements de navbar #}
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-light ">
 
     <a class="navbar-brand" href="{{ path('home') }} "><img id="logo"
-                                                                src="https://1.bp.blogspot.com/-srJG6iZx0ns/YOxgcxEAEOI/AAAAAAAACOA/Ibq0FJuWTQIS27GZ4r2pcHgCKEsvD5ghwCLcBGAsYHQ/s0/logo%2Bwithout%2Bbg.jpg"
-                                                                height="45px" width="85px"></a>
+                                                                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjErfixfZaf8_IJPxSfe9JzKSqYRs3FLMdcMuck-wLIi3drOHIwtK-Wwgf-QChw-URxZZ1AFeldI85tKrZs-rhUlq8EX4R6qKv91tL1LSuYO0I7KlpxPGwuySatL3c5p6NcVDYTMwmg3Vb3XAsL31pdTGu0v1dronTdumwPWkjhPTUse9mEK3WhAOnQ/s16000/esprim_logo_small-removebg-preview.png"
+                                                                height="40px" width="85px"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

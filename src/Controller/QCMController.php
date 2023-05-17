@@ -63,8 +63,86 @@ class QCMController extends AbstractController
 //            ->getResult()
 //        ;
 
+
+    }
+    /**
+ * @Route("/dashboard/{idstudent}", name="dashboard")
+ * @return Response
+ */
+public function studentPerformanceAnalysis($idstudent): Response
+{
+    $em = $this->getDoctrine()->getManager();
+
+    // Récupérer tous les résultats des QCM des étudiants
+    $studentQcmResults = $em->getRepository(StudentQcm::class)->findAll();
+
+    // Groupement par matière
+    $resultsBySubject = [];
+    foreach ($studentQcmResults as $result) {
+        $subjectId = $result->getMatiere()->getId();
+        $resultsBySubject[$subjectId][] = $result;
     }
 
+    // Calcul de la moyenne par matière
+    $averagesBySubject = [];
+    foreach ($resultsBySubject as $subjectId => $results) {
+        $sum = 0;
+        $count = count($results);
+        foreach ($results as $result) {
+            $sum += (int) $result->getNote();
+        }
+        $subject = $em->getRepository(Matiere::class)->find($subjectId);
+        $averagesBySubject[$subject->getName()] = ($count > 0) ? $sum / $count : 0;
+    }
+
+    // Groupement par question
+    $resultsByQuestion = [];
+    foreach ($studentQcmResults as $result) {
+        $questionId = $result->getQuestion()->getId();
+        $resultsByQuestion[$questionId][] = $result;
+    }
+
+    // Calcul du taux de réussite par question
+    $passRatesByQuestion = [];
+    foreach ($resultsByQuestion as $questionId => $results) {
+        $passCount = 0;
+        $totalCount = count($results);
+        foreach ($results as $result) {
+            if ($result->getNote() > 2) {
+                $passCount++;
+            }
+        }
+        $passRatesByQuestion[$questionId] = ($totalCount > 0) ? $passCount / $totalCount : 0;
+    }
+
+    // Récupérer les résultats d'un étudiant spécifique (remplacez 123 par l'ID de l'étudiant souhaité)
+    $studentId = $idstudent;
+    $studentResults = $em->getRepository(StudentQcm::class)->findBy(['user' => $studentId]);
+
+    // Calcul du score total de l'étudiant
+    $studentTotalScore = 0;
+    foreach ($studentResults as $result) {
+        $studentTotalScore += $result->getNote();
+    }
+
+    // Récupérer les noms de matières
+    $matiereRepository = $em->getRepository(Matiere::class);
+    $matieres = $matiereRepository->findAll();
+
+    // Créer un tableau avec les noms de matières
+    $matiereNames = [];
+    foreach ($matieres as $matiere) {
+        $matiereNames[] = $matiere->getName();
+    }
+
+    // Rendre le template "pages/dashboard.html.twig" avec les données nécessaires
+    return $this->render('pages/dashboard.html.twig', [
+        'averagesBySubject' => $averagesBySubject,
+        'passRatesByQuestion' => $passRatesByQuestion,
+        'studentTotalScore' => $studentTotalScore,
+        'matiereNames' => $matiereNames
+    ]);
+}
 
     /**
      * @Route("/saveqcm/{id}/{stu}", name="save_qcm")

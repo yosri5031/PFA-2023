@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {# Render bar chart #}
+    <div id="subject-chart">
+        <canvas id="subject-chart-canvas"></canvas>
+    </div>
+
+    {# Render horizontal bar chart #}
+    <div id="question-pass-rates">
+        <canvas id="question-pass-rates-canvas"></canvas>
+    </div>
+
+    {# Display student score #}
+    <p>Votre score total est : {{ studentTotalScore }}</p>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Formatage des nombres
+            function formatNumber(number) {
+                return Intl.NumberFormat().format(number);
+            }
+
+            // Bar chart
+            new Chart(document.getElementById("subject-chart-canvas"), {
+                type: 'bar',
+                data: {
+                    labels: [
+                        {% for subject in averagesBySubject %}
+                            '{{ subject }}',
+                        {% endfor %}
+                    ],
+                    datasets: [{
+                        backgroundColor: "#3e95cd",
+                        data: [
+                            {% for average in averagesBySubject %}
+                                {{ average | number_format(2, '.', '') }},
+                            {% endfor %}
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return formatNumber(value);
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Moyenne par matière'
+                        }
+                    }
+                }
+            });
+
+            // Horizontal bar chart
+            new Chart(document.getElementById("question-pass-rates-canvas"), {
+                type: 'horizontalBar',
+                data: {
+                    labels: [
+                        {% for passRate in passRatesByQuestion %}
+                            '{{ passRate * 100 }}%',
+                        {% endfor %}
+                    ],
+                    datasets: [{
+                        data: [
+                            {% for rate in passRatesByQuestion %}
+                                {{ rate | number_format(2, '.', '') }},
+                            {% endfor %}
+                        ],
+                        backgroundColor: "#3e95cd"
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 1,
+                            ticks: {
+                                callback: function(value) {
+                                    return formatNumber(value);
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Taux de réussite par question'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block title %}Tableau de bord{% endblock %}

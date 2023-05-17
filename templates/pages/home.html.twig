@@ -9,28 +9,37 @@
 <!-- StyleSheet service box bootstrap  -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<style>
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 80px; /* Set the height of the footer */
+  background-color: #f5f5f5; /* Set the background color of the footer */
+}
+</style>
 {% endblock %}
 
-{% block body %}
+{% block body %}é
 
 <!-- inclusion du fichier css dans ma page twig -->
 <style>{% include 'css/style.css' %}</style>
     <!-- welcome -->
 
     <div  class="containerWelcome" id="welcome">
-        <h1 style="color:rgb(255,153,9)">Evaluation.edu</h1>
-        <h2 style="color:#ff9909">Make our Education life better ...</h2>
+        <h1 style="color:white">Evaluation.edu</h1>
+        <h2 style="color:white">Make our Education life better ...</h2>
         <a href="{{path('apropos.index')}}" class="myButton">About Us</a>
     </div>
     <!-- end welcome -->
     <!-- container etudiant - enseignant -->
 <div class="container">
 
-            <img src="https://1.bp.blogspot.com/-zbqhljOllb4/YOyWWJUseII/AAAAAAAACOY/A3266JjPhagBHfAeEVbmWehAuKHqR_TLACLcBGAsYHQ/s0/container-page.jpg" width="1330px" height="300px" alt="studentcontainer">
+           <!-- <img src="https://1.bp.blogspot.com/-zbqhljOllb4/YOyWWJUseII/AAAAAAAACOY/A3266JjPhagBHfAeEVbmWehAuKHqR_TLACLcBGAsYHQ/s0/container-page.jpg" width="1330px" height="300px" alt="studentcontainer">-->
 
                 <div class="texte_centrer" id="text-étudiant">
                 <h3 class="title"> étudiants</h3>
-                <p class="description">Veiller visiter la<a href="{{ path('app_register') }}" > <b><u>page des enquêtes</u></b> </a>pour évaluer vos cours et l'environnement d'éducation générale dans votre établissement.</p>
+                <p class="description" style="color:white; font-size:20px;">Veiller visiter la<a href="{{ path('app_register') }}" > <b><u>page des enquêtes</u></b> </a>pour évaluer vos cours et l'environnement d'éducation générale dans votre établissement.</p>
 
                 <a href="{{path('app_login')}}"  id="bouton_surveys"><i class="fa fa-arrow-right"></i></a>
                 </div>
@@ -38,7 +47,7 @@
 
               <div class="texte_centrer" id="text-teacher">
                 <h3 class="title">enseignants</h3>
-                <p class="description">Vous pouvez visiter l'<a href="{{ path('app_login') }}"><b><u>espace des enseignants et chefs de départements</u></b>
+                <p class="description" style="color:white; font-size:20px;">Vous pouvez visiter l'<a href="{{ path('app_login') }}"><b><u>espace des enseignants et chefs de départements</u></b>
                     </a>pour étudier les bilan statistique concernants vos cours dans l'établissement.</p>
                     <a href="{{path('app_login')}}"  id="bouton_surveys"><i class="fa fa-arrow-right"></i></a>
 
@@ -50,12 +59,12 @@
 </div>
 
 <!-- footer -->
-    <div class="footer">
-<a href="http://www.isima.rnu.tn/">
-  <img class="imagefooter" align ="left" src="https://1.bp.blogspot.com/--JPC2uQ14tQ/YLj0JmX5i9I/AAAAAAAAB0Y/lee4dKrW7jEyp2eW8osg8sDhRStNExgugCLcBGAsYHQ/s0/isima-logo_150x70.jpg"  >
-</a>
-© By yosri ben salem ,e: Dr.Mounir Salhi,Carthage Solutions.
-    </div>
+<div class="footer">
+  <a href="https://www.esprims.ens.tn/">
+    <img class="imagefooter" align="left" src="https://www.ecoles.com.tn/sites/default/files/universite/logo/esprims-logo.jpg">
+  </a>
+  <p class="footer-text">© By <strong>yosri ben salem</strong>, Esprims.</p>
+</div>
 {% endblock %}
 {% block title %} Evaluation.edu {% endblock %}
 
